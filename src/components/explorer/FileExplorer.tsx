@@ -12,7 +12,7 @@ export default function FileExplorer() {
       } = useFileExplorerStore();
       useEffect(() => {
         getDirectoryContents();
-      }, [getDirectoryContents]);
+      }, [getDirectoryContents, activePath]);
     return (
         <>
             <div className="flex items-center justify-between p-4 sticky top-16 bg-background z-10 border-b border-gray-700 mb-4">

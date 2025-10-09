@@ -11,6 +11,7 @@ interface FileExplorerState {
     currentViewMode: ViewModeItem;
     currentSortMethod: SortMethodItem;
     currentSortMode: SortModeItem;
+    moveToUpperDirectory: () => void;
     setSortMethod: (sortMethod: SortMethodItem) => void;
     setSortMode: (sortMode: SortModeItem) => void;
     setViewMode: (viewMode: ViewModeItem) => void;
@@ -58,7 +59,7 @@ export const sortModes:SortModeItem[] = [
 
 const useFileExplorerStore = create<FileExplorerState>((set, get) => ({
     fileList: [],
-    activePath: "/home/rodolrojas",
+    activePath: "/home/rodolrojas/",
     currentViewMode: viewModes[0],
     currentSortMethod: sortMethods[0],
     currentSortMode: sortModes[0],
@@ -77,6 +78,14 @@ const useFileExplorerStore = create<FileExplorerState>((set, get) => ({
     setActivePath: (directory: string) => {
         set({ activePath: directory });
     },
+    moveToUpperDirectory: () => {
+        const { activePath } = get();
+        if (activePath === "/") return; // Already at root
+        const pathParts = activePath.split("/").filter(part => part.length > 0);
+        pathParts.pop(); // Remove the last part
+        const newPath = "/" + pathParts.join("/") + (pathParts.length > 0 ? "/" : "");
+        set({ activePath: newPath });
+    },
     getDirectoryContents: async () => {
         const { activePath } = get();
         try {
@@ -89,7 +98,7 @@ const useFileExplorerStore = create<FileExplorerState>((set, get) => ({
             });
             if (!response.ok) throw new Error("Failed to fetch directory contents");
             const data = (await response.json()) as ApiResponse;
-            set({ fileList: data.items });
+            set({ fileList: (data.items || []) });
         } catch (error) {
             console.error(error);
             set({ fileList: [] });
