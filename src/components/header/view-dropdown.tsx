@@ -7,7 +7,8 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import useFileExplorerStore, { viewModes } from "@/stores/FileExplorerStore";
+import useFileExplorerStore from "@/stores/FileExplorer/FileExplorerStore";
+import { viewModes } from "@/stores/FileExplorer/ViewOptionsSlice";
 
 export default function ViewDropdown() {
 

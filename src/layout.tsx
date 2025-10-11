@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/sidebar/AppSidebar";
 import Header from "./components/header/AppHeader";
 import useSearchBarStore from "./stores/SearchBarStore";
 import Wrapper from "./components/Wrapper";
+import { Toaster } from "sonner";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const closeSearchBar = useSearchBarStore((state) => state.closeSearchBar);
@@ -22,6 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Wrapper>
         </main>
       </SidebarProvider>
+      <Toaster />
     </>
   );
 }

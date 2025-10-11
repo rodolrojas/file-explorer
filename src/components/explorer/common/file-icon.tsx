@@ -8,6 +8,5 @@ interface FileItemIconProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function FileItemIcon(props: FileItemIconProps) {
     const FileIcon = getFileIcon(props.file);
-    console.log(props);
     return <FileIcon.component style={{ color: FileIcon.color }} {...props} />;
 }

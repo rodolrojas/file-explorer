@@ -8,7 +8,8 @@ import {
 import { Button } from "../ui/button";
 import { ListChevronsDownUp } from "lucide-react";
 import { DropdownMenuRadioGroup } from "@radix-ui/react-dropdown-menu";
-import useFileExplorerStore, { sortMethods, sortModes } from "@/stores/FileExplorerStore";
+import useFileExplorerStore from "@/stores/FileExplorer/FileExplorerStore";
+import { sortMethods, sortModes } from "@/stores/FileExplorer/ViewOptionsSlice";
 
 export default function SortDropdown() {
   

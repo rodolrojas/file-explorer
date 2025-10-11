@@ -1,5 +1,5 @@
 import type FileNode from "@/interfaces/FileNode";
-import useFileExplorerStore from "@/stores/FileExplorerStore";
+import useFileExplorerStore from "@/stores/FileExplorer/FileExplorerStore";
 import React from "react";
 
 interface FileItemActionsProviderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -7,7 +7,7 @@ interface FileItemActionsProviderProps extends React.HTMLAttributes<HTMLDivEleme
 }
 
 export default function FileItemActionsProvider(props: FileItemActionsProviderProps) {
-    const {setActivePath, activePath} = useFileExplorerStore();
+    const {setActivePath} = useFileExplorerStore();
 
     const handleRightClick = (event: React.MouseEvent) => {
         event.preventDefault();
@@ -18,7 +18,6 @@ export default function FileItemActionsProvider(props: FileItemActionsProviderPr
         event.preventDefault();
         console.log("Double click detected on file:", file);
         if (file.is_dir) {
-            alert(`Opening dir: ${file.path}`);
             const pathTarget = file.path;
             setActivePath(pathTarget);
         }

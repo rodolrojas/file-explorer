@@ -6,7 +6,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import useFileExplorerStore from "@/stores/FileExplorerStore";
+import useFileExplorerStore from "@/stores/FileExplorer/FileExplorerStore";
+import type React from "react";
 import { Fragment } from "react/jsx-runtime";
 
 export default function AppBreadcrumb() {
@@ -18,6 +19,12 @@ export default function AppBreadcrumb() {
     return [pathSegments as Array<string>, pathSegments.length];
   })();
 
+  const navigateTo = (e: React.MouseEvent ,index: number) => {
+    e.preventDefault();
+    const newPath = "/" + pathSegments.slice(1, index + 1).join("/") + (index === 0 ? "" : "/");
+    useFileExplorerStore.getState().setActivePath(newPath);
+  }
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -28,7 +35,7 @@ export default function AppBreadcrumb() {
                 index === length - 1 ? (
                 <BreadcrumbPage>{segment}</BreadcrumbPage>
               ) : (
-              <BreadcrumbLink href={`/${pathSegments.slice(0, index + 1).join("/")}`}>
+              <BreadcrumbLink href={`/${pathSegments.slice(0, index + 1).join("/")}`} onClick={(e) => {navigateTo(e, index)}}>
                 {segment}
               </BreadcrumbLink>
               )
